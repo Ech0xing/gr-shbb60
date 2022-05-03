@@ -62,24 +62,10 @@ namespace shbb60 {
 
         printf("[*] bb60c_source_ipml: opened device\n");
 
-        status = bbConfigureIQCenter(m_handle, center_freq);
-        if (status != bbNoError)
-        {
-            fprintf(stderr, "[!] bb60c_source_ipml: bbConfigureIQCenter() failed\n");
-            fprintf(stderr, "%s\n", bbGetErrorString(status));
-            exit(EXIT_FAILURE);
-        }
-
+        set_center_freq(center_freq);
         printf("[*] bb60c_source_ipml: set center frequency\n");
 
-        status = bbConfigureLevel(m_handle, ref_level, BB_AUTO_ATTEN);
-        if (status != bbNoError)
-        {
-            fprintf(stderr, "[!] bb60c_source_ipml: bbConfigureLevel() failed\n");
-            fprintf(stderr, "%s\n", bbGetErrorString(status));
-            exit(EXIT_FAILURE);
-        }
-
+        set_ref_level(ref_level);
         printf("[*] bb60c_source_ipml: configured reference level\n");
 
         status = bbConfigureIO(m_handle, 0, 0);
@@ -136,6 +122,66 @@ namespace shbb60 {
     }
 
 
+    void bb60c_source_impl::set_center_freq(
+        float center_freq)
+    {
+        printf("set_center_freq() called with %0.f\n", center_freq);
+        return;
+
+        //const std::lock_guard<std::mutex> lock(m_mutex);
+
+        bbStatus status = bbConfigureIQCenter(m_handle, center_freq);
+        if (status != bbNoError)
+        {
+            fprintf(stderr, "[!] bb60c_source_ipml: bbConfigureIQCenter() failed\n");
+            fprintf(stderr, "%s\n", bbGetErrorString(status));
+            exit(EXIT_FAILURE);
+        }
+
+        m_center_freq = center_freq;
+    }
+
+
+    void bb60c_source_impl::set_ref_level(
+        float ref_level)
+    {
+        printf("set_ref_level() called with %0.f\n", ref_level);
+        return;
+
+        //const std::lock_guard<std::mutex> lock(m_mutex);
+
+        bbStatus status = bbConfigureLevel(m_handle, ref_level, BB_AUTO_ATTEN);
+        if (status != bbNoError)
+        {
+            fprintf(stderr, "[!] bb60c_source_ipml: bbConfigureLevel() failed\n");
+            fprintf(stderr, "%s\n", bbGetErrorString(status));
+            exit(EXIT_FAILURE);
+        }
+
+        m_ref_level = ref_level;
+    }
+
+
+    void bb60c_source_impl::set_decimation(
+        int decimation)
+    {
+        printf("set_decimation() called with %d\n", decimation);
+        return;
+
+        //const std::lock_guard<std::mutex> lock(m_mutex);
+    }
+
+
+    void bb60c_source_impl::set_filter_bw(
+        float filter_bw)
+    {
+        printf("set_filter_bw() called with %0.f\n", filter_bw);
+        return;
+
+        //const std::lock_guard<std::mutex> lock(m_mutex);
+    }
+
+
     int bb60c_source_impl::general_work(
         int noutput_items,
         gr_vector_int &ninput_items,
@@ -148,6 +194,8 @@ namespace shbb60 {
         pkt.triggers = NULL;
         pkt.triggerCount = 0;
         pkt.purge = BB_TRUE;
+
+        //const std::lock_guard<std::mutex> lock(m_mutex);
 
         bbStatus status = bbGetIQ(m_handle, &pkt);
         if (status != bbNoError)

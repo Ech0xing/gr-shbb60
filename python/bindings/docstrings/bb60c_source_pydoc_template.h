@@ -22,3 +22,13 @@
  static const char *__doc_gr_shbb60_bb60c_source_make = R"doc()doc";
 
   
+ static const char* __doc_gr_shbb60_bb60c_source_set_center_freq = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_ref_level = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_decimation = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_filter_bw = R"doc()doc";

@@ -1,0 +1,52 @@
+[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192]
+
+["40 MS/s (1)","20 MS/s (2)","10 MS/s (4)","5 MS/s (8)","2.5 MS/s (16)","1.25 MS/s (32)","625 KS/s (64)","312.5 KS/s (128)","156.25 KS/s (256)","78.125 KS/s (512)","39,062.5 S/s (1024)","19,531.25 S/s (2048)","9,765.625 S/s (4096)","4,882.8125 S/s (8192)"]
+
+{1:27e6, 2:17.8e6, 4:8e6, 8:3.75e6, 16:2e6, 32:1e6, 64:0.5e6, 128:0.25e6, 256:140e3, 512:65e3, 1024:30e3, 2048:15e3, 4096:8e3, 8192:4e3}[decimation]
+
+
+
+
+.def(
+    "set_center_freq",
+    &bb60c_source::set_n,
+    py::arg("center_freq"),
+    D(bb60c_source, set_center_freq))
+
+.def(
+    "set_ref_level",
+    &bb60c_source::set_n,
+    py::arg("ref_level"),
+    D(bb60c_source, set_ref_level))
+
+.def(
+    "set_decimation",
+    &bb60c_source::set_n,
+    py::arg("decimation"),
+    D(bb60c_source, set_decimation))
+
+.def(
+    "set_filter_bw",
+    &bb60c_source::set_n,
+    py::arg("filter_bw"),
+    D(bb60c_source, set_filter_bw))
+
+
+
+
+ static const char *__doc_gr_shbb60_bb60c_source = R"doc()doc";
+
+
+ static const char *__doc_gr_shbb60_bb60c_source_make = R"doc()doc";
+
+  
+ static const char* __doc_gr_shbb60_bb60c_source_set_center_freq = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_ref_level = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_decimation = R"doc()doc";
+ 
+
+ static const char* __doc_gr_shbb60_bb60c_source_set_filter_bw = R"doc()doc";

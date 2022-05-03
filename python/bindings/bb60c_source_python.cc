@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(bb60c_source.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(8495d47c2b34cb3a9416786485b7cdce)                     */
+/* BINDTOOL_HEADER_FILE_HASH(acab343cba51c7f6f7dac2beffa62148)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -44,6 +44,31 @@ void bind_bb60c_source(py::module& m)
            py::arg("filter_bw"),
            D(bb60c_source,make)
         )
+
+
+        .def(
+            "set_center_freq",
+            &bb60c_source::set_center_freq,
+            py::arg("center_freq"),
+            D(bb60c_source, set_center_freq))
+
+        .def(
+            "set_ref_level",
+            &bb60c_source::set_ref_level,
+            py::arg("ref_level"),
+            D(bb60c_source, set_ref_level))
+
+        .def(
+            "set_decimation",
+            &bb60c_source::set_decimation,
+            py::arg("decimation"),
+            D(bb60c_source, set_decimation))
+
+        .def(
+            "set_filter_bw",
+            &bb60c_source::set_filter_bw,
+            py::arg("filter_bw"),
+            D(bb60c_source, set_filter_bw))
         
 
 

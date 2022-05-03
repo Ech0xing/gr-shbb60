@@ -3,13 +3,6 @@ label: "Signal Hound BB60C Source"
 category: '[Signal Hound]'
 
 
-
-templates:
-  imports: import shbb60
-  make: shbb60.bb60c_source(${center_freq}, ${ref_level}, ${decimation}, ${filter_bw})
-
-
-
 parameters:
 
 - id: center_freq
@@ -40,6 +33,15 @@ outputs:
   vlen: 1
   optional: 0
 
+
+templates:
+  imports: import shbb60
+  make: shbb60.bb60c_source(${center_freq}, ${ref_level}, ${decimation}, ${filter_bw})
+  callbacks:
+  - set_center_freq(${center_freq})
+  - set_ref_level(${ref_level})
+  - set_decimation(${decimation})
+  - set_filter_bw(${filter_bw})
 
 
 file_format: 1

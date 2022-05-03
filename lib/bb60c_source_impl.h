@@ -5,6 +5,8 @@
 
 #include <bb_api.h>
 
+#include <mutex>
+
 
 
 // temporary BB60C constants
@@ -31,6 +33,11 @@ class bb60c_source_impl : public bb60c_source
 
         bool stop() override;
 
+        void set_center_freq(float center_freq) override;
+        void set_ref_level(float ref_level) override;
+        void set_decimation(int decimation) override;
+        void set_filter_bw(float filter_bw) override;
+
         int general_work(
             int noutput_items,
             gr_vector_int &ninput_items,
@@ -41,8 +48,10 @@ class bb60c_source_impl : public bb60c_source
         float m_center_freq;
         float m_ref_level;
         int m_decimation;
+        float m_filter_bw;
 
         int m_handle;
+        std::mutex m_mutex;
 };
 
 } // namespace shbb60

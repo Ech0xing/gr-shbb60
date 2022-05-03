@@ -28,64 +28,111 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [8, 12.0]
     rotation: 0
     state: enabled
 
 blocks:
+- name: center_freq
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Center Frequency [Hz]
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: 70e6
+    step: 10e6
+    stop: 6e9
+    value: 2.425e9
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 12.0]
+    rotation: 0
+    state: true
+- name: decimation
+  id: variable_qtgui_chooser
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Sample Rate (Decimation)
+    label0: ''
+    label1: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '["40 MS/s (1)","20 MS/s (2)","10 MS/s (4)","5 MS/s (8)","2.5 MS/s (16)","1.25
+      MS/s (32)","625 KS/s (64)","312.5 KS/s (128)","156.25 KS/s (256)","78.125 KS/s
+      (512)","39,062.5 S/s (1024)","19,531.25 S/s (2048)","9,765.625 S/s (4096)","4,882.8125
+      S/s (8192)"]'
+    num_opts: '0'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192]'
+    orient: Qt.QVBoxLayout
+    type: int
+    value: '4'
+    widget: combo_box
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 12.0]
+    rotation: 0
+    state: true
+- name: filter_bw
+  id: variable
+  parameters:
+    comment: ''
+    value: '{1:27e6, 2:17.8e6, 4:8e6, 8:3.75e6, 16:2e6, 32:1e6, 64:0.5e6, 128:0.25e6,
+      256:140e3, 512:65e3, 1024:30e3, 2048:15e3, 4096:8e3, 8192:4e3}[decimation]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 204.0]
+    rotation: 0
+    state: enabled
+- name: ref_level
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Reference Level (dBm)
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '-80.0'
+    step: '0.1'
+    stop: '20.0'
+    value: '-20.0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 12.0]
+    rotation: 0
+    state: true
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: 10e6
+    value: 40e6/decimation
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 12.0]
+    coordinate: [544, 140.0]
     rotation: 0
     state: enabled
-- name: blocks_file_source_0
-  id: blocks_file_source
-  parameters:
-    affinity: ''
-    alias: ''
-    begin_tag: pmt.PMT_NIL
-    comment: ''
-    file: /root/signal_hound/examples/sh_capture.cf32
-    length: '0'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    offset: '0'
-    repeat: 'True'
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [400, 548.0]
-    rotation: 0
-    state: disabled
-- name: blocks_throttle_0
-  id: blocks_throttle
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    ignoretag: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    samples_per_second: samp_rate
-    type: complex
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [728, 580.0]
-    rotation: 0
-    state: disabled
 - name: qtgui_freq_sink_x_0
   id: qtgui_freq_sink_x
   parameters:
@@ -164,7 +211,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 340.0]
+    coordinate: [792, 524.0]
     rotation: 0
     state: true
 - name: shbb60_bb60c_source_0
@@ -172,24 +219,22 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: '2425000000.0'
+    center_freq: center_freq
     comment: ''
-    decimation: '4'
-    filter_bw: '8000000.0'
+    decimation: decimation
+    filter_bw: filter_bw
     maxoutbuf: '0'
     minoutbuf: '0'
-    ref_level: '-20.0'
+    ref_level: ref_level
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 332.0]
+    coordinate: [304, 516.0]
     rotation: 0
     state: true
 
 connections:
-- [blocks_file_source_0, '0', blocks_throttle_0, '0']
-- [blocks_throttle_0, '0', qtgui_freq_sink_x_0, '0']
 - [shbb60_bb60c_source_0, '0', qtgui_freq_sink_x_0, '0']
 
 metadata:

@@ -19,6 +19,11 @@ namespace shbb60 {
             float ref_level,
             int decimation,
             float filter_bw);
+
+        virtual void set_center_freq(float center_freq) = 0;
+        virtual void set_ref_level(float ref_level) = 0;
+        virtual void set_decimation(int decimation) = 0;
+        virtual void set_filter_bw(float filter_bw) = 0;
     };
 
 } // namespace shbb60
