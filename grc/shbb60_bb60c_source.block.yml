@@ -1,0 +1,45 @@
+id: shbb60_bb60c_source
+label: "Signal Hound BB60C Source"
+category: '[Signal Hound]'
+
+
+
+templates:
+  imports: import shbb60
+  make: shbb60.bb60c_source(${center_freq}, ${ref_level}, ${decimation}, ${filter_bw})
+
+
+
+parameters:
+
+- id: center_freq
+  label: Center Frequency [Hz]
+  dtype: float
+  default: 2450000000.0
+
+- id: ref_level
+  label: Reference Level [dBm]
+  dtype: float
+  default: 0.0
+
+- id: decimation
+  label: Decimation (of 40 MS/s)
+  dtype: int
+  default: 4
+
+- id: filter_bw
+  label: Filter Bandwidth [Hz]
+  dtype: float
+  default: 8000000.0
+
+
+outputs:
+- label: samples
+  domain: stream
+  dtype: complex
+  vlen: 1
+  optional: 0
+
+
+
+file_format: 1
