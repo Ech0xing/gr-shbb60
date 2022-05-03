@@ -211,6 +211,12 @@ namespace shbb60 {
             exit(EXIT_FAILURE);
         }
 
+        // warn of overflows
+        if (pkt.dataRemaining > 0)
+        {
+            printf("O"); fflush(stdout);
+        }
+
         return noutput_items;
     }
 
