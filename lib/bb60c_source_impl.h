@@ -52,6 +52,9 @@ class bb60c_source_impl : public bb60c_source
 
         int m_handle;
         std::mutex m_mutex;
+        bool m_should_reconfigure;
+
+        void reconfigure();
 };
 
 } // namespace shbb60
