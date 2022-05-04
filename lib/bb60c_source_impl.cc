@@ -1,6 +1,8 @@
 #include <gnuradio/io_signature.h>
 #include "bb60c_source_impl.h"
 
+#define PRINT_OVERFLOWS
+
 
 
 namespace gr {
@@ -200,7 +202,7 @@ namespace shbb60 {
         pkt.iqCount = noutput_items;
         pkt.triggers = NULL;
         pkt.triggerCount = 0;
-        pkt.purge = BB_TRUE;
+        pkt.purge = BB_FALSE;
 
         bbStatus status = bbGetIQ(m_handle, &pkt);
         if (status != bbNoError)
@@ -211,11 +213,12 @@ namespace shbb60 {
             exit(EXIT_FAILURE);
         }
 
-        // warn of overflows
+#ifdef PRINT_OVERFLOWS
         if (pkt.dataRemaining > 0)
         {
             printf("O"); fflush(stdout);
         }
+#endif // PRINT_OVERFLOWS
 
         return noutput_items;
     }
